@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英単語マスター</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+    <div id="app" class="max-w-3xl mx-auto p-4 md:p-8">
+        <!-- Content will be injected here by JavaScript -->
+    </div>
+
+    <script>
+        const csvData = `単語,意味,用法・例文
+abandon,〜を捨てる・放棄する,"The crew had to abandon the sinking ship. (乗組員は沈みゆく船を放棄しなければならなかった)"
+abolish,〜を廃止する,"The government decided to abolish the unfair tax system. (政府はその不公平な税制を廃止することを決定した)"
+abolition,廃止,"The abolition of slavery was a monumental event in history. (奴隷制度の廃止は歴史上の記念碑的な出来事であった)"
+abortion,妊娠中絶,"Abortion remains a highly controversial issue in many countries. (妊娠中絶は多くの国で依然として非常に物議を醸す問題である)"
+abound,豊富にある,"Fish abound in this river. (この川には魚が豊富にいる)"
+abstain,控える・棄権する,"He decided to abstain from drinking alcohol. (彼は飲酒を控えることにした)"
+accord,一致する・与える・協定,"His behavior does not accord with his principles. (彼の行動は彼の原則と一致しない)"
+accusation,非難・告発,"She vehemently denied the accusation of theft. (彼女は窃盗の告発を激しく否定した)"
+accuse,〜を非難する・告発する,"He was accused of stealing the documents. (彼は書類を盗んだとして告発された)"
+accustomed,慣れている,"I am accustomed to staying up late. (私は夜更かしに慣れている)"
+acquainted,知り合いである・精通している,"I am well acquainted with the local customs. (私は地元の風習に精通している)"
+acute,鋭い・急性の・深刻な,"She is suffering from acute pain in her lower back. (彼女は腰の急性の痛みに苦しんでいる)"
+adhere,固守する・くっつく,"All staff must strictly adhere to the safety guidelines. (全スタッフは安全ガイドラインを厳守しなければならない)"
+adherence,固守・執着,"Strict adherence to the rules is required. (規則の厳格な遵守が求められる)"
+administer,管理する・（薬などを）投与する,"The nurse will administer the medication every four hours. (看護師が4時間おきに薬を投与します)"
+adolescence,思春期,"Adolescence is a time of great physical and emotional change. (思春期は身体的および精神的に大きな変化の時期である)"
+adolescent,思春期の若者・思春期の,"Adolescent boys often experience a sudden growth spurt. (思春期の少年はしばしば急激な成長期を経験する)"
+adore,〜を熱愛する・崇拝する,"She simply adores her newborn grandchild. (彼女は生まれたばかりの孫をただただ熱愛している)"
+adorn,〜を飾る,"The room was adorned with beautiful flowers. (その部屋は美しい花で飾られていた)"
+adversary,敵・対戦相手,"He defeated his old adversary in the final match. (彼は決勝戦で長年の敵を打ち負かした)"
+adverse,不利な・逆の,"The medicine may have adverse side effects. (その薬は好ましくない副作用をもたらすかもしれない)"
+adversity,逆境,"She showed great courage in the face of adversity. (彼女は逆境に直面して大きな勇気を示した)"
+affectionate,愛情深い,"He is an affectionate father to his three children. (彼は3人の子供に対して愛情深い父親である)"
+affirm,断言する・肯定する,"He affirmed that the statement was entirely true. (彼はその声明が完全に真実であると断言した)"
+affirmative,肯定的な,"Please reply in the affirmative if you agree. (同意する場合は肯定の返事をしてください)"
+against all odds,あらゆる困難を乗り越えて・予想を裏切って,"Against all odds, the small team won the championship. (あらゆる困難を乗り越え、その小さなチームは優勝した)"
+agony,（心身の）激しい苦痛・苦悩,"He collapsed on the floor in agony. (彼は激しい苦痛のあまり床に倒れ込んだ)"
+akin,同種の・類似した,"Pity is akin to love. (同情は愛情に似ている)"
+all the rage,大流行して,"Short skirts are all the rage this season. (今シーズンは短いスカートが大流行している)"
+alleviate,（苦痛などを）軽減する,"This medicine will help alleviate your symptoms. (この薬はあなたの症状を軽減するのに役立つでしょう)"
+ally,同盟国・味方,"Japan is a key ally of the United States. (日本は米国の重要な同盟国である)"
+amend,（法律などを）修正する・改正する,"The constitution was amended to grant women the right to vote. (憲法は女性に参政権を与えるために改正された)"
+ample,十分な・広大な,"There is ample evidence to support his theory. (彼の理論を裏付ける十分な証拠がある)"
+anticipate,〜を予期する・見込む,"We anticipate a large crowd at the event. (私たちはイベントに多くの人が集まることを予期している)"
+antiquity,古代・古物,"The ruins date back to classical antiquity. (その遺跡は古典古代にさかのぼる)"
+appall,〜をゾッとさせる・愕然とさせる,"The horrific details of the crime appalled everyone. (その犯罪の恐ろしい詳細はすべての人を愕然とさせた)"
+apparatus,装置・器具・機構,"The laboratory is equipped with the latest scientific apparatus. (その実験室には最新の科学装置が備えられている)"
+appetite,食欲・欲求,"The long walk gave me a good appetite. (長く歩いたので食欲がわいた)"
+applaud,〜に拍手喝采する・称賛する,"The audience loudly applauded the performance. (観客はその演技に大きな拍手喝采を送った)"
+apprehension,不安・懸念・逮捕,"She looked at the dark sky with apprehension. (彼女は不安げに暗い空を見上げた)"
+apprehensive,不安な・心配して,"I am apprehensive about the upcoming exams. (私は迫り来る試験について不安に思っている)"
+aptitude,才能・適性,"He has a natural aptitude for learning languages. (彼は言語学習に対する生まれつきの才能がある)"
+arithmetic,算数・計算,"He is not very good at basic arithmetic. (彼は基本的な算数があまり得意ではない)"
+arouse,（感情などを）刺激する・目覚めさせる,"His suspicious behavior aroused our curiosity. (彼の怪しい振る舞いは私たちの好奇心を刺激した)"
+arrogance,傲慢,"His arrogance makes him unpopular among his colleagues. (彼の傲慢さは同僚の間で彼を不人気にしている)"
+arrogant,傲慢な,"She is too arrogant to admit her mistakes. (彼女は傲慢すぎて自分の間違いを認めようとしない)"
+ascend,登る・上昇する,"The climbers slowly ascended the steep mountain. (登山者たちは険しい山をゆっくりと登った)"
+ascent,上昇・登頂,"The sudden ascent of the balloon surprised the children. (風船の突然の上昇に子供たちは驚いた)"
+ascribe,...の原因を〜に帰する,"He ascribed his success to hard work and good luck. (彼は自分の成功を勤勉と幸運のおかげだとした)"
+ashamed,恥じて,"You should be ashamed of your terrible behavior. (あなたは自分のひどい振る舞いを恥じるべきだ)"
+assassination,暗殺,"The president's assassination shocked the entire nation. (大統領の暗殺は国全体に衝撃を与えた)"
+assert,主張する・断言する,"He continued to assert his innocence throughout the trial. (彼は裁判の間ずっと自分の無実を主張し続けた)"
+assertion,主張・断言,"I strongly disagree with his assertion. (私は彼の主張に強く反対する)"
+assure,保証する・安心させる,"I assure you that the product is perfectly safe. (その製品は完全に安全だと保証します)"
+astonishing,驚くべき,"She possesses an astonishing memory for details. (彼女は細部に対する驚くべき記憶力を持っている)"
+astound,ひどく驚かせる,"The magician's tricks astounded the audience. (マジシャンの手品は観客をひどく驚かせた)"
+at odds with,〜と対立して・意見が合わない,"He is always at odds with his manager. (彼はいつも上司と意見が対立している)"
+at stake,危険にさらされて・賭けられて,"Thousands of lives are at stake in this war. (この戦争では何千人もの命が危険にさらされている)"
+at will,意のままに・自由に,"You can use this facility at will. (あなたはこの施設を自由に使用できます)"
+attain,達成する・到達する,"She finally attained her goal of becoming a doctor. (彼女はついに医師になるという目標を達成した)"
+attract,引きつける・魅了する,"The beautiful flowers attract many bees. (その美しい花は多くのハチを引きつける)"
+attribute,...を〜のせいにする・属性,"She attributed her poor performance to a lack of sleep. (彼女は成績不振を睡眠不足のせいだとした)"
+bait,餌・誘惑物,"He put a worm on the hook as bait. (彼は釣り針に餌としてミミズをつけた)"
+baptism,洗礼,"The priest performed the baptism of the newborn baby. (神父は新生児の洗礼を行った)"
+beard,顎髭,"He grew a long white beard as he got older. (彼は年をとるにつれて長い白髭を伸ばした)"
+benign,良性の・温和な,"Fortunately, the tumor turned out to be benign. (幸いなことに、その腫瘍は良性であることが判明した)"
+birthrate,出生率,"The declining birthrate is a major problem in Japan. (出生率の低下は日本における大きな問題である)"
+blame,非難する・〜の責任にする,"Don't blame me for your own mistakes. (自分の失敗を私のせいにしないでくれ)"
+board,板・委員会・搭乗する,"The board of directors approved the new budget. (取締役会は新しい予算を承認した)"
+bruise,打撲傷・あざ,"She had a large purple bruise on her arm. (彼女の腕には大きな紫色のあざがあった)"
+bustle,喧騒・慌ただしく動く,"I love the hustle and bustle of the big city. (私は大都市の喧騒が大好きだ)"
+by and large,概して・全体的に見て,"By and large, the new policy has been successful. (概して、その新しい政策は成功している)"
+call it a day,今日はここまでにしよう・仕事を切り上げる,"We've done enough for now. Let's call it a day. (今のところは十分やった。今日はここまでにしよう)"
+carve,彫る・切り開く,"He carved a beautiful statue out of wood. (彼は木から美しい彫像を彫り出した)"
+cattle,牛（集合名詞）,"The farmer raises hundreds of cattle on his ranch. (その農場主は牧場で何百頭もの牛を飼育している)"
+cereal,穀物・シリアル,"Oats and wheat are important cereal crops. (オーツ麦と小麦は重要な穀物作物である)"
+chore,雑用・日課,"Doing the laundry is my least favorite chore. (洗濯は私が一番嫌いな家事だ)"
+cite,引用する・言及する,"The author cited several experts in his article. (著者は記事の中で何人かの専門家を引用した)"
+clergy,聖職者（集合名詞）,"Members of the clergy are highly respected in the community. (聖職者は地域社会で深く尊敬されている)"
+cling,しがみつく・固執する,"The frightened child clung to his mother. (怯えた子供は母親にしがみついた)"
+cohesion,結束・団結,"Social cohesion is necessary for a peaceful society. (平和な社会には社会的結束が必要である)"
+coincide,同時に起こる・一致する,"My vacation happens to coincide with hers. (私の休暇はたまたま彼女のものと重なっている)"
+come by handy,役に立つ（※come in handyの誤用・混同表現として注意）,"Don't throw that box away; it might come in handy later. (その箱を捨てないで。後で役に立つかもしれないよ)"
+come to terms with,〜と折り合いをつける・諦めて受け入れる,"She eventually came to terms with her illness. (彼女は最終的に自分の病気と折り合いをつけた)"
+compile,（資料などを）編集する・まとめる,"It took years to compile the dictionary. (その辞書を編集するのに何年もかかった)"
+comply,（規則や命令に）従う,"All companies must comply with the new environmental regulations. (すべての企業は新しい環境規制に従わなければならない)"
+comprise,〜から構成される・〜を構成する,"The committee is comprised of five members. (その委員会は5人のメンバーで構成されている)"
+conceive,思いつく・想像する・妊娠する,"I cannot conceive why she would do such a thing. (なぜ彼女がそんなことをするのか想像もつかない)"
+conduct,行う・指揮する・振る舞い,"The scientists conducted a series of experiments. (科学者たちは一連の実験を行った)"
+confess,告白する・白状する,"He finally confessed to breaking the window. (彼はついに窓を割ったことを告白した)"
+confession,告白・自白,"The police managed to get a confession from the suspect. (警察は容疑者から自白を引き出すことに成功した)"
+confide,（秘密などを）打ち明ける・信頼する,"She confided her secret to her best friend. (彼女は親友に秘密を打ち明けた)"
+confine,制限する・閉じ込める,"Please confine your remarks to the subject at hand. (発言は当面の問題に限定してください)"
+conform,（規則や慣習に）従う・適合する,"You must conform to the dress code of the company. (会社の服装規定に従わなければならない)"
+confront,直面する・立ち向かう,"We must confront these issues sooner or later. (我々は遅かれ早かれこれらの問題に直面しなければならない)"
+connotation,言外の意味・含蓄,"The word 'home' has a warm connotation. (「家（home）」という言葉には温かい言外の意味がある)"
+consent,同意する・承諾,"Her parents refused to consent to the marriage. (彼女の両親はその結婚に同意することを拒否した)"
+consist,〜から成る（of）・〜に存在する（in）,"Water consists of hydrogen and oxygen. (水は水素と酸素から成る)"
+constant,一定の・絶え間ない,"The machine requires a constant supply of electricity. (その機械には絶え間ない電力供給が必要だ)"
+constitute,構成する・〜となる,"Twelve months constitute a year. (12ヶ月が1年を構成する)"
+contribute,貢献する・寄付する,"Many people contributed money to the relief fund. (多くの人が救援基金に寄付をした)"
+convention,慣習・大会・条約,"It is a convention to shake hands when meeting someone. (人に会った時に握手をするのは慣習である)"
+courtesy,礼儀・親切,"He didn't even have the courtesy to say thank you. (彼にはありがとうと言う礼儀すらもなかった)"
+creep,這う・忍び込む,"The cat crept silently toward the bird. (猫は鳥に向かって静かに忍び寄った)"
+curb,抑制する・縁石,"The government must take measures to curb inflation. (政府はインフレを抑制する対策を講じなければならない)"
+customary,慣習的な・通例の,"It is customary to give tips in restaurants in the US. (アメリカのレストランでチップを渡すのは慣習である)"
+deceitful,人を騙すような・欺瞞的な,"His deceitful behavior ruined their friendship. (彼の欺瞞的な振る舞いが彼らの友情を台無しにした)"
+defect,欠陥・不足・離反する,"The product was recalled due to a manufacturing defect. (その製品は製造上の欠陥により回収された)"
+defiance,反抗・挑戦,"He acted in open defiance of the rules. (彼は規則に対して公然と反抗して行動した)"
+delegation,代表団・委任,"The country sent a large delegation to the Olympic Games. (その国はオリンピックに大規模な代表団を派遣した)"
+deplore,嘆く・非難する,"We deeply deplore the violence that occurred yesterday. (我々は昨日起きた暴力を深く嘆き非難する)"
+derivation,引き出すこと・語源,"The derivation of the word is unknown. (その言葉の語源は不明である)"
+descent,下降・血統・下り坂,"The plane began its descent into London. (飛行機はロンドンへの降下を開始した)"
+desolate,荒涼とした・孤独な,"They drove through a barren and desolate landscape. (彼らは不毛で荒涼とした風景の中を車で通り抜けた)"
+despair,絶望・絶望する,"He gave up the search in despair. (彼は絶望して探索を諦めた)"
+despise,軽蔑する・ひどく嫌う,"She despises people who lie to her. (彼女は自分に嘘をつく人々を軽蔑している)"
+detach,切り離す・引き離す,"Detach the coupon and return it with your payment. (クーポンを切り離して支払いと一緒に返送してください)"
+deteriorate,悪化する,"The patient's condition deteriorated rapidly overnight. (患者の容態は一晩で急速に悪化した)"
+device,装置・工夫,"This small device is used for tracking locations. (この小さな装置は位置を追跡するために使われる)"
+devise,考案する・工夫する,"The engineers devised a new method for recycling plastic. (エンジニアたちはプラスチックをリサイクルする新しい方法を考案した)"
+devoid,〜が全く欠けている（of）,"The landscape is completely devoid of vegetation. (その風景には植物が全く欠けている)"
+diminish,減少する・減らす,"The pain will gradually diminish over time. (痛みは時間とともに徐々に減少するでしょう)"
+discourse,談話・論説・講演,"Academic discourse often involves complex terminology. (学術的な談話はしばしば複雑な専門用語を伴う)"
+discreet,慎重な・控えめな,"He was very discreet in asking questions about her past. (彼は彼女の過去について質問する際、非常に慎重だった)"
+dismay,落胆・狼狽・〜を落胆させる,"To our dismay, the train had already left. (私たちが落胆したことに、列車はすでに出発していた)"
+disperse,分散させる・散らす,"The police used tear gas to disperse the crowd. (警察は群衆を分散させるために催涙ガスを使用した)"
+distract,（注意などを）そらす・気を散らす,"Please don't distract me while I'm studying. (私が勉強している間は気を散らさないでください)"
+distribute,分配する・配布する,"The organization distributes food to the homeless. (その組織はホームレスに分配している)"
+divine,神聖な・神の,"The emperor was once considered to have divine power. (皇帝はかつて神聖な力を持っていると考えられていた)"
+dizzy,めまいがする,"Looking down from the tall building made me feel dizzy. (高い建物から見下ろすとめまいがした)"
+earnest,真面目な・熱心な,"He made an earnest effort to improve his English. (彼は英語を上達させるために真面目な努力をした)"
+elaborate,精巧な・詳しく述べる,"She wore an elaborate costume to the party. (彼女はパーティーに精巧な衣装を着ていった)"
+eloquent,雄弁な・説得力のある,"He gave an eloquent speech that moved everyone. (彼は皆を感動させる雄弁なスピーチをした)"
+embark,着手する・乗船する,"They embarked on a new business venture. (彼らは新しい事業に着手した)"
+embrace,抱きしめる・（思想などを）受け入れる,"He warmly embraced his daughter at the airport. (彼は空港で娘を温かく抱きしめた)"
+eminent,著名な・卓越した,"She is an eminent scholar in the field of linguistics. (彼女は言語学の分野で著名な学者である)"
+enclose,同封する・囲む,"Please enclose a copy of your passport with the application. (申請書にパスポートのコピーを同封してください)"
+endow,（才能などを）授ける・寄付する,"She is endowed with both intelligence and beauty. (彼女は知性と美しさの両方を授かっている)"
+enlighten,啓発する・教える,"Could you please enlighten me on this complex issue? (この複雑な問題について私を啓発していただけませんか？)"
+ensure,確実にする・保証する,"Please ensure that all doors are locked before leaving. (出発する前にすべてのドアが施錠されていることを確実にしてください)"
+envious,羨んで・嫉妬深い,"I am envious of your talent for playing the piano. (私はあなたのピアノを弾く才能を羨ましく思う)"
+equivalent,同等の・相当するもの,"One dollar is roughly equivalent to 150 yen. (1ドルはおよそ150円に相当する)"
+erect,直立した・建てる,"They plan to erect a monument in the center of the park. (彼らは公園の中央に記念碑を建てる計画だ)"
+erode,浸食する・徐々に破壊する,"The constant rain eroded the soil on the hillside. (絶え間ない雨が丘の中腹の土壌を浸食した)"
+evade,逃れる・巧みに避ける,"He managed to evade paying taxes for years. (彼は何年もの間、税金を払うのを巧みに逃れた)"
+evasion,回避・脱税,"Tax evasion is a serious crime. (脱税は深刻な犯罪である)"
+excess,過剰・超過,"An excess of stress can lead to physical illness. (過剰なストレスは身体の病気を引き起こす可能性がある)"
+expire,期限が切れる・終了する,"My passport will expire next month. (私のパスポートは来月期限が切れる)"
+exquisite,非常に美しい・精巧な,"She wore a necklace of exquisite craftsmanship. (彼女は精巧な職人技による非常に美しいネックレスを身につけていた)"
+faculty,（生来の）能力・（大学の）学部、教員陣,"He has a remarkable faculty for remembering names. (彼には名前を覚える驚くべき能力がある)"
+feudal,封建制の,"The samurai played a central role in feudal Japan. (侍は封建時代の日本で中心的な役割を果たした)"
+folklore,民間伝承・民俗学,"Dragons are common in the folklore of many cultures. (ドラゴンは多くの文化の民間伝承に共通している)"
+give off,（光・におい・熱などを）発する,"The rotten meat gave off a terrible smell. (腐った肉がひどい悪臭を発していた)"
+greet,挨拶する・出迎える,"The host greeted the guests at the door. (主人はドアのところで客たちに挨拶した)"
+hold true,（規則などが）当てはまる・有効である,"This scientific principle holds true under all conditions. (この科学的原則はあらゆる条件下で当てはまる)"
+hostile,敵対的な・非友好的な,"The villagers were hostile to the outsiders. (村人たちはよそ者に対して敵対的だった)"
+imperial,帝国の・皇帝の,"The imperial family attended the opening ceremony. (皇族がその開会式に出席した)"
+in vain,無駄に・虚しく,"All our efforts to save the patient were in vain. (患者を救おうとする我々の努力はすべて無駄に終わった)"
+induce,引き起こす・説得して〜させる,"Nothing could induce him to change his mind. (何をもってしても彼に考えを変えさせることはできなかった)"
+indulge,甘やかす・（欲望などに）ふける,"I decided to indulge myself with a large piece of cake. (私は大きなケーキで自分を甘やかすことにした)"
+infect,感染させる・影響を及ぼす,"The virus can infect both humans and animals. (そのウイルスは人間と動物の両方に感染する可能性がある)"
+infer,推論する・察する,"From the evidence, we can infer that he is guilty. (証拠から彼が有罪であると推論できる)"
+inherent,生来の・本来備わっている,"Every business involves some inherent risks. (すべてのビジネスには生来のリスクが伴う)"
+innumerable,無数の・数え切れないほどの,"There are innumerable stars in the galaxy. (銀河には無数の星がある)"
+insist,強く主張する・言い張る,"She insisted on paying for the dinner. (彼女は夕食代を払うと強く主張した)"
+inspect,詳細に検査する・視察する,"The official will inspect the factory tomorrow. (役人が明日その工場を検査する予定だ)"
+intend,意図する・〜するつもりである,"I intend to finish this project by Friday. (金曜日までにこのプロジェクトを終わらせるつもりだ)"
+intrude,侵入する・押し入る・邪魔をする,"I am sorry to intrude on your privacy. (あなたのプライバシーに立ち入ってしまい申し訳ありません)"
+invade,侵略する・侵害する,"The country was invaded by a foreign army. (その国は外国の軍隊に侵略された)"
+kin,親族・血縁関係,"He is my next of kin. (彼は私の最も近い親族だ)"
+linger,長引く・居残る・名残惜しそうにする,"The smell of her perfume lingered in the room. (彼女の香水の香りが部屋にいつまでも残っていた)"
+liver,肝臓,"Heavy drinking can severely damage your liver. (過度の飲酒は肝臓に深刻なダメージを与える可能性がある)"
+malice,悪意・敵意,"He acted out of pure malice rather than greed. (彼は貪欲からではなく純粋な悪意から行動した)"
+malicious,悪意のある・意地の悪い,"She was hurt by his malicious comments. (彼女は彼の悪意のあるコメントに傷ついた)"
+merchant,商人・貿易商,"The merchant traveled across the desert to sell spices. (その商人はスパイスを売るために砂漠を越えて旅をした)"
+mischief,いたずら・害悪,"The boys are always getting into mischief. (その少年たちはいつもいたずらばかりしている)"
+mischievous,いたずら好きな・害を及ぼす,"He had a mischievous twinkle in his eye. (彼の目にはいたずらっぽい輝きがあった)"
+mourn,悼む・悲しむ,"The entire nation mourned the death of the leader. (国全体がその指導者の死を悼んだ)"
+mutter,つぶやく・ブツブツ文句を言う,"He muttered something under his breath. (彼は小声で何かをつぶやいた)"
+narcotics,麻薬・睡眠薬,"The police arrested the man for smuggling narcotics. (警察はその男を麻薬密輸の容疑で逮捕した)"
+notion,概念・考え・意見,"She has a romantic notion of life in the country. (彼女は田舎暮らしに対してロマンチックな考えを持っている)"
+novice,初心者・新米,"I am a complete novice when it comes to computers. (コンピューターに関しては私は全くの初心者です)"
+nuisance,厄介者・迷惑なこと,"The noise from the construction site is a real nuisance. (建設現場からの騒音は本当に迷惑だ)"
+omission,省略・脱落・怠慢,"There are a few important omissions in this report. (この報告書にはいくつか重要な省略箇所がある)"
+omit,省略する・〜し忘れる,"Please omit the unnecessary details. (不必要な詳細は省略してください)"
+on the brink of,〜の瀬戸際に・〜する寸前で,"The company was on the brink of bankruptcy. (その会社は倒産の危機に瀕していた)"
+outbreak,（病気や戦争などの）勃発・発生,"The sudden outbreak of the virus caused global panic. (そのウイルスの突然の発生は世界的なパニックを引き起こした)"
+outrage,激怒・暴力行為・〜を激怒させる,"Public outrage forced the politician to resign. (世間の激怒により、その政治家は辞任を余儀なくされた)"
+patent,特許・明白な,"He applied for a patent for his new invention. (彼は自分の新しい発明の特許を申請した)"
+patriot,愛国者,"He was regarded as a great patriot who loved his country. (彼は祖国を愛する偉大な愛国者と見なされていた)"
+patriotism,愛国心,"The war stimulated a strong sense of patriotism among the citizens. (その戦争は市民の間に強い愛国心を刺激した)"
+pension,年金・恩給,"He lives on a small state pension. (彼はわずかな国の年金で暮らしている)"
+peril,（生命を脅かすような）危険,"The explorers faced great peril in the jungle. (探検家たちはジャングルで大きな危険に直面した)"
+permit,許可する・許す,"Smoking is not permitted in this building. (この建物内での喫煙は許可されていません)"
+perpetual,永遠の・絶え間ない,"They lived in perpetual fear of another earthquake. (彼らは次の地震に対する絶え間ない恐怖の中で生きていた)"
+perplex,当惑させる・混乱させる,"His strange behavior perplexed everyone. (彼の奇妙な振る舞いは皆を当惑させた)"
+persecute,迫害する・苦しめる,"They were persecuted for their religious beliefs. (彼らは宗教的信念のゆえに迫害された)"
+persist,固執する・持続する,"If the symptoms persist, consult a doctor immediately. (症状が持続する場合はすぐに医師の診察を受けてください)"
+persuade,説得する・納得させる,"I tried to persuade him to join our team. (私は彼に私たちのチームに加わるよう説得しようとした)"
+pilgrim,巡礼者・旅人,"Millions of pilgrims visit the holy shrine every year. (毎年何百万人もの巡礼者がその聖地を訪れる)"
+pimple,ニキビ・吹き出物,"He was worried about the pimple on his forehead. (彼は額のニキビを気にしていた)"
+pity,哀れみ・残念なこと,"It is a pity that you cannot come to the party. (あなたがパーティーに来られないのは残念だ)"
+pledge,誓約・誓う,"He made a pledge never to drink again. (彼は二度と酒を飲まないと誓った)"
+plot,陰謀・（小説などの）筋書き,"The police uncovered a plot to assassinate the king. (警察は国王を暗殺する陰謀を摘発した)"
+plow,鋤・耕す（英: plough）,"The farmer used a tractor to plow the field. (農場主はトラクターを使って畑を耕した)"
+preach,説教する・伝道する,"The priest preached about the importance of forgiveness. (神父は許しの重要性について説教した)"
+prestige,威信・名声,"Harvard University has great academic prestige. (ハーバード大学には大きな学術的威信がある)"
+prevalent,普及している・流行している,"Colds are highly prevalent in the winter months. (冬の時期には風邪が非常に流行している)"
+prudent,慎重な・賢明な,"It is prudent to save money for an emergency. (緊急事態のために貯金するのは賢明である)"
+raid,急襲・手入れ・襲撃する,"The police conducted a dawn raid on the suspect's house. (警察は容疑者の家を明け方に急襲した)"
+recital,独奏会・朗読,"She gave a brilliant piano recital last night. (彼女は昨夜、素晴らしいピアノの独奏会を開いた)"
+reckless,無謀な・向こう見ずな,"He was arrested for reckless driving. (彼は無謀な運転で逮捕された)"
+reckon,計算する・考える・推測する,"I reckon it will rain tomorrow. (明日は雨が降ると思う)"
+reconcile,和解させる・調和させる,"It is difficult to reconcile his words with his actions. (彼の言葉と行動を調和させるのは難しい)"
+rejoice,喜ぶ・歓喜する,"The whole town rejoiced at the news of victory. (町中が勝利の知らせに歓喜した)"
+repent,後悔する・悔い改める,"He repented of his past sins. (彼は過去の罪を悔い改めた)"
+resolve,解決する・決心する・決意,"She resolved to work harder next year. (彼女は来年はもっと一生懸命働くと決心した)"
+retrospect,回顧・追憶,"In retrospect, I should have listened to his advice. (振り返ってみると、彼のアドバイスを聞くべきだった)"
+revenue,（国や企業の）収益・歳入,"The company's advertising revenue increased significantly. (その会社の広告収益は著しく増加した)"
+roam,歩き回る・放浪する,"Wild animals roam freely in this national park. (この国立公園では野生動物が自由に歩き回っている)"
+ruthless,無情な・冷酷な,"The dictator was known for his ruthless suppression of opponents. (その独裁者は反対派に対する冷酷な弾圧で知られていた)"
+sanity,正気・健全さ,"He struggled to keep his sanity during the long confinement. (彼は長い監禁生活の中で正気を保つのに必死だった)"
+scorn,軽蔑・嘲笑・軽蔑する,"She looked at him with obvious scorn. (彼女は明らかな軽蔑の念をもって彼を見た)"
+scrutinize,詳細に調べる・吟味する,"The committee will scrutinize the proposal before making a decision. (委員会は決定を下す前にその提案を詳細に調べる)"
+scrutiny,詳細な調査・監視,"The company's accounts came under close public scrutiny. (その会社の会計は公の厳しい監視の下に置かれた)"
+serial,連続の・定期刊行物,"The police are searching for a serial killer. (警察は連続殺人犯を捜査している)"
+settler,開拓者・移民,"Early settlers faced many hardships in the new land. (初期の開拓者たちは新天地で多くの困難に直面した)"
+sewage,下水・汚水,"Untreated sewage was being pumped into the river. (未処理の下水が川に排出されていた)"
+shiver,（寒さや恐怖で）震える,"He stood shivering in the cold wind. (彼は冷たい風の中で震えながら立っていた)"
+shriek,悲鳴を上げる・甲高い声,"She shrieked in terror when she saw the spider. (彼女はクモを見て恐怖の悲鳴を上げた)"
+shrug,肩をすくめる,"He simply shrugged his shoulders and walked away. (彼はただ肩をすくめて歩き去った)"
+sober,しらふの・真面目な・冷める,"He hasn't had a drink in years and is completely sober. (彼は何年も酒を飲んでおらず、完全にしらふだ)"
+soothe,なだめる・（痛みを）和らげる,"The mother sang a lullaby to soothe the crying baby. (母親は泣いている赤ん坊をなだめるために子守唄を歌った)"
+sound,健全な・音・聞こえる,"We need a sound financial plan for the future. (私たちには将来に向けた健全な財務計画が必要だ)"
+spouse,配偶者,"Employees can bring their spouses to the company dinner. (従業員は会社の夕食会に配偶者を同伴できる)"
+spur,拍車をかける・刺激・拍車,"Lower interest rates are expected to spur economic growth. (金利の低下が経済成長に拍車をかけると期待されている)"
+stare,見つめる・凝視する,"It is considered rude to stare at strangers. (見知らぬ人をじろじろ見つめるのは失礼だとされている)"
+startle,驚かせる・ビクッとさせる,"The sudden loud noise startled the baby. (突然の大きな音に赤ん坊はビクッと驚いた)"
+starve,飢える・餓死する,"Millions of people are starving in the drought-stricken region. (干ばつに見舞われた地域で何百万人もの人々が飢えている)"
+stern,厳格な・厳しい,"The teacher gave the noisy students a stern warning. (教師は騒がしい生徒たちに厳格な警告を与えた)"
+stride,大股で歩く・歩み・進歩,"He strode confidently into the meeting room. (彼は自信に満ちて大股で会議室に入っていった)"
+strive,努力する・奮闘する,"We must strive for peace and equality. (我々は平和と平等のために努力しなければならない)"
+subdue,鎮圧する・抑える,"The police finally managed to subdue the rioters. (警察はついに暴徒を鎮圧することに成功した)"
+subsidy,補助金・助成金,"The government provides a subsidy to farmers. (政府は農場主に補助金を提供している)"
+substitute,代用する・代用品,"You can substitute honey for sugar in this recipe. (このレシピでは砂糖の代わりにハチミツを代用できます)"
+suffocate,窒息させる・息が詰まる,"The victim was suffocated with a pillow. (被害者は枕で窒息死させられた)"
+superstition,迷信,"There is an old superstition that black cats bring bad luck. (黒猫は不運をもたらすという古い迷信がある)"
+supplement,補足・サプリメント・補う,"He takes vitamin supplements every morning. (彼は毎朝ビタミンのサプリメントを飲んでいる)"
+surge,急増する・押し寄せる・急増,"There has been a surge in demand for electric vehicles. (電気自動車の需要が急増している)"
+susceptible,影響を受けやすい・感染しやすい,"Elderly people are more susceptible to the flu. (高齢者はインフルエンザに感染しやすい)"
+suspicion,疑い・容疑,"He was arrested on suspicion of murder. (彼は殺人の容疑で逮捕された)"
+swell,膨らむ・増大する,"His ankle began to swell after the injury. (怪我をした後、彼の足首は腫れ始めた)"
+synthesize,合成する・統合する,"The liver can synthesize various proteins. (肝臓はさまざまなタンパク質を合成できる)"
+tactic,戦術・方策,"The general employed a brilliant new tactic to win the battle. (将軍は戦いに勝つために見事な新しい戦術を用いた)"
+tease,からかう・いじめる,"The older boys used to tease him about his glasses. (年上の少年たちは彼の眼鏡のことでよく彼をからかった)"
+tedious,退屈な・うんざりするような,"Sorting out these old documents is a tedious task. (これらの古い書類を整理するのは退屈な作業だ)"
+tempt,誘惑する・そそのかす,"I was tempted to eat the whole cake, but I stopped myself. (ケーキを丸ごと食べたい誘惑に駆られたが、思いとどまった)"
+thrive,繁栄する・（植物が）よく育つ,"The business is thriving thanks to its innovative products. (その事業は革新的な製品のおかげで繁栄している)"
+thrust,押し付ける・突き刺す,"He thrust a wad of cash into my hand. (彼は私の手に札束を押し付けた)"
+toddler,よちよち歩きの幼児,"The toddler is just learning how to walk. (その幼児は歩き方を学んでいるところだ)"
+token,しるし・記念品,"Please accept this gift as a token of our appreciation. (私たちの感謝のしるしとしてこの贈り物を受け取ってください)"
+torment,苦しめる・苦痛,"He was tormented by feelings of guilt. (彼は罪悪感に苦しめられた)"
+trait,（性格などの）特徴・特質,"Honesty is one of her most admirable traits. (誠実さは彼女の最も称賛すべき特徴の一つである)"
+transact,取引する・処理する,"Most of our business is transacted online nowadays. (今日、私たちのビジネスの大部分はオンラインで取引されている)"
+transcend,超越する・限界を超える,"Great art transcends the boundaries of time and culture. (偉大な芸術は時間と文化の境界を超越する)"
+tremble,震える・恐怖で身震いする,"She began to tremble with cold and fear. (彼女は寒さと恐怖で震え始めた)"
+tribal,部族の,"The museum exhibits various tribal masks from Africa. (その博物館はアフリカのさまざまな部族の仮面を展示している)"
+trifle,些細なこと・少量,"Don't waste your time worrying about such trifles. (そんな些細なことで悩んで時間を無駄にしてはいけない)"
+tuition,授業料・指導,"University tuition fees have risen significantly in recent years. (近年、大学の授業料は著しく上昇している)"
+tyrant,暴君・独裁者,"The cruel tyrant oppressed the people for decades. (その残酷な暴君は何十年も人々を抑圧した)"
+unanimous,満場一致の,"The jury reached a unanimous verdict of not guilty. (陪審員は満場一致で無罪の評決に達した)"
+unprecedented,前例のない・空前の,"The country is facing an economic crisis of unprecedented scale. (その国は前例のない規模の経済危機に直面している)"
+urge,促す・強く主張する・衝動,"The doctor urged him to quit smoking immediately. (医者は彼にすぐに禁煙するよう促した)"
+utmost,最大限の・最高の,"We must treat this matter with the utmost care. (我々はこの問題を最大限の注意をもって扱わなければならない)"
+vain,無駄な・虚栄心の強い,"He made a vain attempt to save the failing company. (彼は倒産しかかっている会社を救おうと無駄な試みをした)"
+vein,静脈・血管・気質,"The nurse had trouble finding a suitable vein for the injection. (看護師は注射に適した静脈を見つけるのに苦労した)"
+verse,韻文・詩,"The play is written entirely in blank verse. (その劇はすべて無韻詩で書かれている)"
+vice versa,逆もまた然り（※vise versaはスペルミス）,"He doesn't trust her, and vice versa. (彼は彼女を信用していないし、逆もまた然りだ)"
+vigor,活力・気力,"She defended her ideas with great vigor. (彼女は並外れた活力をもって自分の考えを擁護した)"
+withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to withdraw some cash. (現金を少し引き出すために銀行に行く必要がある)"`;
+
+        // CSVのパース処理
+        function parseCsv(csvText) {
+            const lines = csvText.trim().split('\n');
+            const result = [];
+            // 1行目はヘッダーなのでスキップ
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i];
+                if (!line) continue;
+                
+                let inQuotes = false;
+                let currentField = '';
+                const fields = [];
+                
+                for (let j = 0; j < line.length; j++) {
+                    const char = line[j];
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        fields.push(currentField);
+                        currentField = '';
+                    } else {
+                        currentField += char;
+                    }
+                }
+                fields.push(currentField);
+                
+                if (fields.length >= 3) {
+                    result.push({
+                        word: fields[0].trim(),
+                        meaning: fields[1].trim(),
+                        example: fields[2].trim()
+                    });
+                }
+            }
+            return result;
+        }
+
+        const words = parseCsv(csvData);
+        
+        // セクションデータの構築 (50問ごと)
+        const sections = [];
+        for (let i = 0; i < words.length; i += 50) {
+            sections.push({
+                name: `セクション ${Math.floor(i / 50) + 1} (${i + 1}〜${Math.min(i + 50, words.length)})`,
+                words: words.slice(i, i + 50)
+            });
+        }
+
+        // ローカルストレージからの履歴読み込み
+        // 形式: { "word": { correct: number, total: number } }
+        let history = JSON.parse(localStorage.getItem('quizHistory') || '{}');
+
+        // クイズの状態管理
+        let quizState = {
+            questions: [],
+            currentIndex: 0,
+            answers: [], // ユーザーの回答記録 {word, isCorrect, selected, correct, example}
+            isAnswered: false
+        };
+
+        const appContainer = document.getElementById('app');
+
+        // 定着率の計算 (出題されたうち正解した割合の平均)
+        function calculateMastery(wordList) {
+            if (wordList.length === 0) return 0;
+            let totalScore = 0;
+            wordList.forEach(w => {
+                const stat = history[w.word];
+                if (stat && stat.total > 0) {
+                    totalScore += (stat.correct / stat.total);
+                }
+            });
+            // 最大100%
+            return Math.round((totalScore / wordList.length) * 100);
+        }
+
+        // プログレスバーのHTML生成
+        function createProgressBar(percent) {
+            let color = 'bg-blue-600';
+            if (percent < 30) color = 'bg-red-500';
+            else if (percent > 80) color = 'bg-green-500';
+            
+            return `
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs font-semibold text-slate-500">定着率</span>
+                    <span class="text-xs font-bold text-slate-700">${percent}%</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
+                    <div class="${color} h-2.5 rounded-full transition-all duration-700 ease-out" style="width: ${percent}%"></div>
+                </div>
+            `;
+        }
+
+        // 配列のシャッフル
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // --- 画面レンダリング関数 ---
+
+        function renderHome() {
+            const totalMastery = calculateMastery(words);
+            
+            let html = `
+                <div class="fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                    <h1 class="text-3xl font-bold text-slate-800 text-center mb-2">英単語マスター</h1>
+                    <p class="text-center text-slate-500 mb-8">4択クイズで単語の定着率をアップしよう！</p>
+                    
+                    <div class="bg-blue-50 p-5 rounded-xl mb-8 border border-blue-100">
+                        <h2 class="text-lg font-bold text-blue-900 mb-2">全体の学習状況</h2>
+                        ${createProgressBar(totalMastery)}
+                    </div>
+                    
+                    <h2 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">出題範囲を選ぶ</h2>
+            `;
+
+            // セクションごとの描画
+            sections.forEach((sec, index) => {
+                const mastery = calculateMastery(sec.words);
+                html += `
+                    <div class="mb-6 p-4 border border-slate-100 rounded-xl bg-slate-50/50 hover:bg-slate-50 transition">
+                        <div class="mb-3">
+                            <h3 class="font-bold text-slate-700">${sec.name}</h3>
+                            <div class="mt-2 max-w-xs">
+                                ${createProgressBar(mastery)}
+                            </div>
+                        </div>
+                        ${createQuizButtons(index, sec.words.length)}
+                    </div>
+                `;
+            });
+
+            // 全範囲の描画
+            html += `
+                <div class="mt-8 mb-6 p-4 border border-indigo-100 rounded-xl bg-indigo-50/30 hover:bg-indigo-50/50 transition">
+                    <div class="mb-3">
+                        <h3 class="font-bold text-indigo-900">全範囲からランダム出題 (${words.length}単語)</h3>
+                    </div>
+                    ${createQuizButtons(-1, words.length)}
+                </div>
+            </div>
+            `;
+
+            appContainer.innerHTML = html;
+        }
+
+        function createQuizButtons(sectionIndex, maxWords) {
+            const counts = [10, 20, 50];
+            let buttonsHtml = '<div class="flex flex-wrap gap-2 mt-3">';
+            
+            counts.forEach(c => {
+                const displayCount = Math.min(c, maxWords);
+                // 既に表示済みの数と同じ場合はスキップ (例: 最大40問で、20問の次に50問(40問扱い)を出さないための工夫)
+                // 今回はシンプルに、上限を超えるボタンは上限値にして表示するが、重複は省く。
+                
+                if (c <= maxWords || (c === 50 && maxWords > 20)) {
+                    buttonsHtml += `<button onclick="startQuiz(${sectionIndex}, ${displayCount})" class="px-5 py-2 bg-white border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition shadow-sm text-sm active:scale-95">
+                        ${displayCount}問
+                    </button>`;
+                }
+            });
+            
+            buttonsHtml += '</div>';
+            return buttonsHtml;
+        }
+
+        function startQuiz(sectionIndex, count) {
+            let sourceWords = [];
+            if (sectionIndex === -1) {
+                sourceWords = [...words];
+            } else {
+                sourceWords = [...sections[sectionIndex].words];
+            }
+
+            // 出題単語をシャッフルして必要な数だけ抽出
+            sourceWords = shuffleArray(sourceWords).slice(0, count);
+
+            // クイズ問題の構築
+            const questions = sourceWords.map(targetWord => {
+                // 正解以外の意味を全単語からランダムに3つ選ぶ
+                const otherMeanings = words
+                    .filter(w => w.word !== targetWord.word)
+                    .map(w => w.meaning);
+                
+                const shuffledOthers = shuffleArray(otherMeanings).slice(0, 3);
+                
+                // 選択肢を構成してシャッフル
+                const options = shuffleArray([targetWord.meaning, ...shuffledOthers]);
+                
+                return {
+                    word: targetWord.word,
+                    meaning: targetWord.meaning, // 正解
+                    example: targetWord.example,
+                    options: options
+                };
+            });
+
+            quizState = {
+                questions: questions,
+                currentIndex: 0,
+                answers: [],
+                isAnswered: false
+            };
+
+            renderQuiz();
+        }
+
+        function renderQuiz() {
+            const q = quizState.questions[quizState.currentIndex];
+            const progress = ((quizState.currentIndex) / quizState.questions.length) * 100;
+            
+            let html = `
+                <div class="fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 max-w-2xl mx-auto">
+                    <!-- ヘッダー (プログレス) -->
+                    <div class="flex justify-between items-center mb-2">
+                        <button onclick="if(confirm('クイズを中断してホームに戻りますか？')) renderHome()" class="text-sm text-slate-400 hover:text-slate-600 flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                            やめる
+                        </button>
+                        <span class="text-sm font-bold text-slate-500">問題 ${quizState.currentIndex + 1} / ${quizState.questions.length}</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-1.5 mb-8">
+                        <div class="bg-blue-500 h-1.5 rounded-full transition-all duration-300" style="width: ${progress}%"></div>
+                    </div>
+
+                    <!-- 問題 -->
+                    <div class="text-center mb-8">
+                        <h2 class="text-4xl md:text-5xl font-black text-slate-800 tracking-tight">${q.word}</h2>
+                    </div>
+
+                    <!-- 選択肢 -->
+                    <div class="space-y-3" id="options-container">
+            `;
+
+            q.options.forEach((opt, idx) => {
+                html += `
+                    <button onclick="handleAnswer('${opt.replace(/'/g, "\\'")}', this)" class="option-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50 text-slate-700 font-medium transition-all duration-200">
+                        ${opt}
+                    </button>
+                `;
+            });
+
+            html += `
+                    </div>
+                    
+                    <!-- 結果と解説 (初期は非表示) -->
+                    <div id="explanation" class="hidden mt-6 p-5 rounded-xl border">
+                        <div id="result-badge" class="inline-block px-3 py-1 rounded-full text-sm font-bold mb-3"></div>
+                        <p class="text-sm text-slate-500 mb-1">意味:</p>
+                        <p class="text-lg font-bold text-slate-800 mb-4">${q.meaning}</p>
+                        <p class="text-sm text-slate-500 mb-1">用法・例文:</p>
+                        <p class="text-md text-slate-700 italic">${q.example || 'なし'}</p>
+                        
+                        <button onclick="nextQuestion()" class="mt-6 w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-md active:scale-95">
+                            ${quizState.currentIndex === quizState.questions.length - 1 ? '結果を見る' : '次の問題へ'}
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            appContainer.innerHTML = html;
+        }
+
+        // 回答処理 (グローバル関数として露出)
+        window.handleAnswer = function(selectedOption, btnElement) {
+            if (quizState.isAnswered) return;
+            quizState.isAnswered = true;
+
+            const q = quizState.questions[quizState.currentIndex];
+            const isCorrect = selectedOption === q.meaning;
+
+            // 履歴の更新
+            if (!history[q.word]) {
+                history[q.word] = { correct: 0, total: 0 };
+            }
+            history[q.word].total += 1;
+            if (isCorrect) {
+                history[q.word].correct += 1;
+            }
+            localStorage.setItem('quizHistory', JSON.stringify(history));
+
+            // 回答記録の保存
+            quizState.answers.push({
+                word: q.word,
+                isCorrect: isCorrect,
+                selected: selectedOption,
+                correct: q.meaning,
+                example: q.example
+            });
+
+            // UIの更新
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:border-blue-300', 'hover:bg-blue-50', 'cursor-pointer');
+                
+                if (btn.innerText.trim() === q.meaning) {
+                    // 正解のボタン
+                    btn.classList.add('bg-green-50', 'border-green-500', 'text-green-800');
+                    if (isCorrect) {
+                        btn.innerHTML += ' <span class="float-right font-bold">⭕️</span>';
+                    } else {
+                         btn.innerHTML += ' <span class="float-right font-bold text-green-600">正解</span>';
+                    }
+                } else if (btn === btnElement && !isCorrect) {
+                    // 間違えて選んだボタン
+                    btn.classList.add('bg-red-50', 'border-red-500', 'text-red-800', 'opacity-70');
+                    btn.innerHTML += ' <span class="float-right font-bold">❌</span>';
+                } else {
+                    // その他のボタン
+                    btn.classList.add('opacity-40');
+                }
+            });
+
+            // 解説エリアの表示
+            const explanation = document.getElementById('explanation');
+            const resultBadge = document.getElementById('result-badge');
+            
+            explanation.classList.remove('hidden');
+            if (isCorrect) {
+                explanation.classList.add('bg-green-50/50', 'border-green-200');
+                resultBadge.classList.add('bg-green-100', 'text-green-700');
+                resultBadge.innerText = '⭕️ 正解！';
+            } else {
+                explanation.classList.add('bg-red-50/50', 'border-red-200');
+                resultBadge.classList.add('bg-red-100', 'text-red-700');
+                resultBadge.innerText = '❌ 不正解...';
+            }
+        };
+
+        window.nextQuestion = function() {
+            quizState.currentIndex++;
+            if (quizState.currentIndex < quizState.questions.length) {
+                quizState.isAnswered = false;
+                renderQuiz();
+            } else {
+                renderResult();
+            }
+        };
+
+        function renderResult() {
+            const totalQuestions = quizState.answers.length;
+            const correctCount = quizState.answers.filter(a => a.isCorrect).length;
+            const scorePercent = Math.round((correctCount / totalQuestions) * 100);
+
+            let message = '素晴らしい！';
+            if (scorePercent < 50) message = 'もう少し頑張りましょう！';
+            else if (scorePercent < 80) message = 'よくできました！';
+            else if (scorePercent === 100) message = 'パーフェクト！！';
+
+            let html = `
+                <div class="fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 max-w-3xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">クイズ結果</h2>
+                        <div class="inline-block bg-blue-50 text-blue-800 text-5xl font-black py-4 px-8 rounded-2xl mb-4 shadow-sm border border-blue-100">
+                            ${correctCount} / ${totalQuestions}
+                        </div>
+                        <p class="text-lg font-bold text-slate-600">${message}</p>
+                    </div>
+
+                    <div class="flex justify-center mb-8">
+                        <button onclick="renderHome()" class="px-8 py-3 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700 transition shadow-md active:scale-95">
+                            ホームに戻る
+                        </button>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">正誤一覧</h3>
+                    <div class="space-y-4">
+            `;
+
+            quizState.answers.forEach((ans, idx) => {
+                const isCorrect = ans.isCorrect;
+                const bgColor = isCorrect ? 'bg-green-50' : 'bg-red-50';
+                const borderColor = isCorrect ? 'border-green-200' : 'border-red-200';
+                const icon = isCorrect ? '⭕️' : '❌';
+
+                html += `
+                    <div class="p-4 rounded-xl border ${borderColor} ${bgColor}">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-1 flex-shrink-0">${icon}</div>
+                            <div class="flex-grow">
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-xl font-bold text-slate-800">${ans.word}</span>
+                                </div>
+                                <p class="text-sm font-bold text-slate-700 mb-1">正解: ${ans.correct}</p>
+                                ${!isCorrect ? `<p class="text-sm text-slate-500 mb-1 line-through">あなたの回答: ${ans.selected}</p>` : ''}
+                                <p class="text-xs text-slate-600 mt-2 p-2 bg-white/60 rounded border border-white">${ans.example || ''}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                    
+                    <div class="mt-8 text-center">
+                        <button onclick="renderHome()" class="px-8 py-3 bg-slate-200 text-slate-800 font-bold rounded-xl hover:bg-slate-300 transition active:scale-95">
+                            ホームに戻る
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            appContainer.innerHTML = html;
+            // ページトップへスクロール
+            window.scrollTo(0, 0);
+        }
+
+        // アプリケーションの初期化
+        renderHome();
+    </script>
+</body>
+</html>
