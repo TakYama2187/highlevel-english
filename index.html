@@ -640,11 +640,12 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
                     <div class="grid grid-cols-1 ${isMeaningMode ? 'gap-3' : 'md:grid-cols-2 gap-3'}" id="options-container">
             `;
 
-            q.options.forEach((opt) => {
+            q.options.forEach((opt, idx) => {
                 const escapedOpt = opt.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                 html += `
-                    <button onclick="handleAnswer('${escapedOpt}', this)" class="option-btn text-left p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50 text-slate-700 font-bold text-base transition-all duration-200 cursor-pointer">
-                        ${opt}
+                    <button onclick="handleAnswer('${escapedOpt}', this)" class="option-btn text-left p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50 text-slate-700 font-bold text-base transition-all duration-200 cursor-pointer flex items-center gap-3">
+                        <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-100 text-slate-500 font-semibold text-xs flex-shrink-0 border border-slate-200">${idx + 1}</span>
+                        <span class="flex-grow">${opt}</span>
                     </button>
                 `;
             });
@@ -672,8 +673,9 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
                             ` : ''}
                         </div>
                         
-                        <button onclick="nextQuestion()" class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-md active:scale-95 cursor-pointer">
-                            ${quizState.currentIndex === quizState.questions.length - 1 ? '結果を見る' : '次の問題へ'}
+                        <button id="next-btn" onclick="nextQuestion()" class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                            <span>${quizState.currentIndex === quizState.questions.length - 1 ? '結果を見る' : '次の問題へ'}</span>
+                            <span class="text-xs bg-blue-700/60 px-2 py-0.5 rounded text-blue-100">Enter ↵</span>
                         </button>
                     </div>
                 </div>
@@ -861,6 +863,37 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
             renderHome();
         }
+
+        // キーボード操作の追加
+        document.addEventListener('keydown', (e) => {
+            // モーダルが表示されている場合や、クイズ中ではない場合はスキップ
+            const modal = document.getElementById('custom-modal');
+            if (modal && !modal.classList.contains('hidden')) return;
+
+            // クイズ実施中のキーボード操作
+            if (quizState.questions && quizState.questions.length > 0 && quizState.currentIndex < quizState.questions.length) {
+                // 1〜4キーで選択肢を選ぶ（未回答時のみ）
+                if (!quizState.isAnswered && ['1', '2', '3', '4'].includes(e.key)) {
+                    const optionIndex = parseInt(e.key) - 1;
+                    const buttons = document.querySelectorAll('.option-btn');
+                    if (buttons[optionIndex]) {
+                        buttons[optionIndex].click();
+                    }
+                }
+                // EnterまたはSpaceキーで次の問題へ（回答済み時）
+                else if (quizState.isAnswered && (e.key === 'Enter' || e.key === ' ')) {
+                    e.preventDefault();
+                    nextQuestion();
+                }
+            } 
+            // クイズ結果画面でEnterキーでホームに戻る
+            else if (quizState.answers && quizState.answers.length > 0 && quizState.currentIndex >= quizState.questions.length) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    renderHome();
+                }
+            }
+        });
     </script>
 </body>
 </html>
