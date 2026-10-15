@@ -17,7 +17,19 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen">
     <div id="app" class="max-w-3xl mx-auto p-4 md:p-8">
-        <!-- Content will be injected here by JavaScript -->
+        <div class="text-center py-12 text-slate-500 font-bold">読み込み中...</div>
+    </div>
+
+    <!-- カスタム確認モーダル（alert/confirmの代わりに安全に利用） -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl fade-in">
+            <h3 id="modal-title" class="text-lg font-bold text-slate-800 mb-2">確認</h3>
+            <p id="modal-message" class="text-sm text-slate-600 mb-6">処理を実行しますか？</p>
+            <div class="flex gap-3 justify-end">
+                <button id="modal-cancel" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition">キャンセル</button>
+                <button id="modal-confirm" class="px-4 py-2 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition">実行する</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -149,7 +161,7 @@ discreet,慎重な・控えめな,"He was very discreet in asking questions abou
 dismay,落胆・狼狽・〜を落胆させる,"To our dismay, the train had already left. (私たちが落胆したことに、列車はすでに出発していた)"
 disperse,分散させる・散らす,"The police used tear gas to disperse the crowd. (警察は群衆を分散させるために催涙ガスを使用した)"
 distract,（注意などを）そらす・気を散らす,"Please don't distract me while I'm studying. (私が勉強している間は気を散らさないでください)"
-distribute,分配する・配布する,"The organization distributes food to the homeless. (その組織はホームレスに分配している)"
+distribute,分配する・配布する,"The organization distributes food to the homeless. (その組織はホームレスに食料を分配している)"
 divine,神聖な・神の,"The emperor was once considered to have divine power. (皇帝はかつて神聖な力を持っていると考えられていた)"
 dizzy,めまいがする,"Looking down from the tall building made me feel dizzy. (高い建物から見下ろすとめまいがした)"
 earnest,真面目な・熱心な,"He made an earnest effort to improve his English. (彼は英語を上達させるために真面目な努力をした)"
@@ -168,7 +180,7 @@ erect,直立した・建てる,"They plan to erect a monument in the center of t
 erode,浸食する・徐々に破壊する,"The constant rain eroded the soil on the hillside. (絶え間ない雨が丘の中腹の土壌を浸食した)"
 evade,逃れる・巧みに避ける,"He managed to evade paying taxes for years. (彼は何年もの間、税金を払うのを巧みに逃れた)"
 evasion,回避・脱税,"Tax evasion is a serious crime. (脱税は深刻な犯罪である)"
-excess,過剰・超過,"An excess of stress can lead to physical illness. (過剰なストレスは身体の病気を引き起こす可能性がある)"
+excess,過剰・超過,"An excess of stress can lead to physical illness. (過剰なストレスは身体の病기를引き起こす可能性がある)"
 expire,期限が切れる・終了する,"My passport will expire next month. (私のパスポートは来月期限が切れる)"
 exquisite,非常に美しい・精巧な,"She wore a necklace of exquisite craftsmanship. (彼女は精巧な職人技による非常に美しいネックレスを身につけていた)"
 faculty,（生来の）能力・（大学の）学部、教員陣,"He has a remarkable faculty for remembering names. (彼には名前を覚える驚くべき能力がある)"
@@ -191,7 +203,7 @@ inspect,詳細に検査する・視察する,"The official will inspect the fact
 intend,意図する・〜するつもりである,"I intend to finish this project by Friday. (金曜日までにこのプロジェクトを終わらせるつもりだ)"
 intrude,侵入する・押し入る・邪魔をする,"I am sorry to intrude on your privacy. (あなたのプライバシーに立ち入ってしまい申し訳ありません)"
 invade,侵略する・侵害する,"The country was invaded by a foreign army. (その国は外国の軍隊に侵略された)"
-kin,親族・血縁関係,"He is my next of kin. (彼は私の最も近い親族だ)"
+kin,親族・血縁関係,"He is my next of kin. (彼は最も近い親族だ)"
 linger,長引く・居残る・名残惜しそうにする,"The smell of her perfume lingered in the room. (彼女の香水の香りが部屋にいつまでも残っていた)"
 liver,肝臓,"Heavy drinking can severely damage your liver. (過度の飲酒は肝臓に深刻なダメージを与える可能性がある)"
 malice,悪意・敵意,"He acted out of pure malice rather than greed. (彼は貪欲からではなく純粋な悪意から行動した)"
@@ -299,15 +311,13 @@ utmost,最大限の・最高の,"We must treat this matter with the utmost care.
 vain,無駄な・虚栄心の強い,"He made a vain attempt to save the failing company. (彼は倒産しかかっている会社を救おうと無駄な試みをした)"
 vein,静脈・血管・気質,"The nurse had trouble finding a suitable vein for the injection. (看護師は注射に適した静脈を見つけるのに苦労した)"
 verse,韻文・詩,"The play is written entirely in blank verse. (その劇はすべて無韻詩で書かれている)"
-vice versa,逆もまた然り（※vise versaはスペルミス）,"He doesn't trust her, and vice versa. (彼は彼女を信用していないし、逆もまた然りだ)"
+vice versa,逆もまた然り,"He doesn't trust her, and vice versa. (彼は彼女を信用していないし、逆もまた然りだ)"
 vigor,活力・気力,"She defended her ideas with great vigor. (彼女は並外れた活力をもって自分の考えを擁護した)"
-withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to withdraw some cash. (現金を少し引き出すために銀行に行く必要がある)"`;
+withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank to withdraw some cash. (現金を少し引き出すために銀行に行く必要がある)"`;
 
-        // CSVのパース処理
         function parseCsv(csvText) {
             const lines = csvText.trim().split('\n');
             const result = [];
-            // 1行目はヘッダーなのでスキップ
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i];
                 if (!line) continue;
@@ -342,7 +352,6 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
 
         const words = parseCsv(csvData);
         
-        // セクションデータの構築 (50問ごと)
         const sections = [];
         for (let i = 0; i < words.length; i += 50) {
             sections.push({
@@ -351,22 +360,30 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             });
         }
 
-        // ローカルストレージからの履歴読み込み
-        let history = JSON.parse(localStorage.getItem('quizHistory') || '{}');
+        let history = {};
+        try {
+            history = JSON.parse(localStorage.getItem('quizHistory') || '{}');
+        } catch(e) {
+            history = {};
+        }
 
-        // クイズの状態管理
         let quizState = {
+            mode: 'meaning', // 'meaning' (意味当て) または 'fill-in' (例文穴埋め)
             questions: [],
             currentIndex: 0,
-            answers: [], // ユーザーの回答記録
+            answers: [],
             isAnswered: false
         };
 
         const appContainer = document.getElementById('app');
 
-        // 定着率の計算
+        window.setQuizMode = function(mode) {
+            quizState.mode = mode;
+            renderHome();
+        };
+
         function calculateMastery(wordList) {
-            if (wordList.length === 0) return 0;
+            if (!wordList || wordList.length === 0) return 0;
             let totalScore = 0;
             wordList.forEach(w => {
                 const stat = history[w.word];
@@ -377,7 +394,6 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             return Math.round((totalScore / wordList.length) * 100);
         }
 
-        // プログレスバーのHTML生成
         function createProgressBar(percent) {
             let color = 'bg-blue-600';
             if (percent < 30) color = 'bg-red-500';
@@ -394,32 +410,60 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             `;
         }
 
-        // 配列のシャッフル
-        function shuffleArray(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        // --- 画面レン2ダリング関数 ---
-
         function renderHome() {
+            if (!appContainer) return;
             const totalMastery = calculateMastery(words);
+            const currentMode = quizState.mode || 'meaning';
             
+            // 正解したことがある単語のリスト（累計でcorrect > 0）
+            const correctWordsPool = words.filter(w => history[w.word] && history[w.word].correct > 0);
+
             let html = `
-                <div class="fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
-                    <h1 class="text-3xl font-bold text-slate-800 text-center mb-2">英文穴埋めマスター</h1>
-                    <p class="text-center text-slate-500 mb-8">英文の空欄に当てはまる単語を選んで定着率をアップしよう！</p>
+                <div class="fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 relative">
+                    <!-- 右上の履歴リセットボタン -->
+                    <div class="absolute top-6 right-6">
+                        <button onclick="confirmResetHistory()" class="text-xs px-3 py-1.5 bg-red-50 text-red-600 border border-red-200 font-bold rounded-lg hover:bg-red-100 transition shadow-sm">
+                            🗑️ 履歴リセット
+                        </button>
+                    </div>
+
+                    <h1 class="text-3xl font-bold text-slate-800 text-center mb-2">英単語マスター</h1>
+                    <p class="text-center text-slate-500 mb-6">モードと出題範囲を選んで学習を始めよう！</p>
                     
+                    <!-- 出題形式切替タブ -->
+                    <div class="flex bg-slate-100 p-1.5 rounded-xl mb-6 max-w-md mx-auto border border-slate-200">
+                        <button onclick="setQuizMode('meaning')" class="flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${currentMode === 'meaning' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-800'}">
+                            💡 意味当て
+                        </button>
+                        <button onclick="setQuizMode('fill-in')" class="flex-1 py-2.5 text-sm font-bold rounded-lg transition-all ${currentMode === 'fill-in' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-800'}">
+                            📝 例文穴埋め
+                        </button>
+                    </div>
+
+                    <!-- 全体の学習状況 -->
                     <div class="bg-blue-50 p-5 rounded-xl mb-8 border border-blue-100">
                         <h2 class="text-lg font-bold text-blue-900 mb-2">全体の学習状況</h2>
                         ${createProgressBar(totalMastery)}
                     </div>
+
+                    <!-- 正解した問題からの復習モード -->
+                    <div class="mb-8 p-5 border border-amber-200 rounded-xl bg-amber-50/50">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h3 class="font-bold text-amber-900 text-lg">✨ 正解した問題から復習 (${correctWordsPool.length}単語)</h3>
+                                <p class="text-xs text-amber-700 mt-1">これまで正解したことがある単語の中からランダムに出題します。</p>
+                            </div>
+                            <div class="flex gap-2">
+                                ${correctWordsPool.length > 0 ? `
+                                    <button onclick="startCorrectWordsQuiz(10)" class="px-4 py-2 bg-white border border-amber-300 text-amber-800 font-bold rounded-lg hover:bg-amber-100 transition text-sm shadow-sm">10問</button>
+                                    <button onclick="startCorrectWordsQuiz(20)" class="px-4 py-2 bg-white border border-amber-300 text-amber-800 font-bold rounded-lg hover:bg-amber-100 transition text-sm shadow-sm">20問</button>
+                                    <button onclick="startCorrectWordsQuiz(50)" class="px-4 py-2 bg-white border border-amber-300 text-amber-800 font-bold rounded-lg hover:bg-amber-100 transition text-sm shadow-sm">50問</button>
+                                ` : `<span class="text-xs text-slate-400 font-medium py-2">※正解した問題がまだありません</span>`}
+                            </div>
+                        </div>
+                    </div>
                     
-                    <h2 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">出題範囲を選ぶ</h2>
+                    <h2 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">セクション別 / 全範囲から出題 (${currentMode === 'meaning' ? '意味当てモード' : '例文穴埋めモード'})</h2>
             `;
 
             sections.forEach((sec, index) => {
@@ -457,7 +501,7 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             counts.forEach(c => {
                 const displayCount = Math.min(c, maxWords);
                 if (c <= maxWords || (c === 50 && maxWords > 20)) {
-                    buttonsHtml += `<button onclick="startQuiz(${sectionIndex}, ${displayCount})" class="px-5 py-2 bg-white border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition shadow-sm text-sm active:scale-95">
+                    buttonsHtml += `<button onclick="startQuiz(${sectionIndex}, ${displayCount})" class="px-5 py-2 bg-white border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition shadow-sm text-sm active:scale-95 cursor-pointer">
                         ${displayCount}問
                     </button>`;
                 }
@@ -467,7 +511,7 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             return buttonsHtml;
         }
 
-        function startQuiz(sectionIndex, count) {
+        window.startQuiz = function(sectionIndex, count) {
             let sourceWords = [];
             if (sectionIndex === -1) {
                 sourceWords = [...words];
@@ -475,58 +519,81 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
                 sourceWords = [...sections[sectionIndex].words];
             }
 
-            // 例文（カッコ付きなど）が存在するもの、または例文から単語を置換できるものをフィルタリング
-            // ここでは各データのexample文字列の中に単語が含まれている前提で処理
-            const validWords = sourceWords.filter(w => w.example && w.example.includes('('));
+            setupQuizQuestions(sourceWords, count);
+        };
 
-            // 万が一例文がない場合のフォールバック用に全単語から抽出
-            const targetPool = validWords.length >= count ? validWords : sourceWords;
-            sourceWords = shuffleArray(targetPool).slice(0, count);
+        window.startCorrectWordsQuiz = function(count) {
+            let sourceWords = words.filter(w => history[w.word] && history[w.word].correct > 0);
+            if (sourceWords.length === 0) return;
+            setupQuizQuestions(sourceWords, count);
+        };
 
-            const questions = sourceWords.map(targetWord => {
-                // 例文から単語部分を抽出・置換して空欄文を作る
-                // 例文形式例: "The crew had to abandon the sinking ship. (乗組員は沈みゆく船を放棄しなければならなかった)"
-                let exampleFull = targetWord.example;
-                let englishPart = exampleFull;
-                let japanesePart = "";
-                
-                const splitIdx = exampleFull.indexOf('(');
-                if (splitIdx !== -1) {
-                    englishPart = exampleFull.substring(0, splitIdx).trim();
-                    japanesePart = exampleFull.substring(splitIdx).trim();
+        function setupQuizQuestions(sourceWords, count) {
+            const isMeaningMode = quizState.mode === 'meaning';
+            let targetWords = shuffleArray(sourceWords).slice(0, count);
+
+            const questions = targetWords.map(targetWord => {
+                if (isMeaningMode) {
+                    // 意味当て：問題は単語、正解は意味、選択肢は4択（正解＋他3つの意味）
+                    const otherMeanings = words
+                        .filter(w => w.word !== targetWord.word)
+                        .map(w => w.meaning);
+                    
+                    const shuffledOthers = shuffleArray(otherMeanings).slice(0, 3);
+                    const options = shuffleArray([targetWord.meaning, ...shuffledOthers]);
+
+                    return {
+                        word: targetWord.word,
+                        meaning: targetWord.meaning,
+                        example: targetWord.example,
+                        questionText: targetWord.word,
+                        correctAnswer: targetWord.meaning,
+                        options: options
+                    };
+                } else {
+                    // 例文穴埋め：問題は空欄付き例文、正解は単語、選択肢は4択（正解＋他3つの単語）
+                    let exampleFull = targetWord.example;
+                    let englishPart = exampleFull;
+                    let japanesePart = "";
+                    
+                    const splitIdx = exampleFull.indexOf('(');
+                    if (splitIdx !== -1) {
+                        englishPart = exampleFull.substring(0, splitIdx).trim();
+                        japanesePart = exampleFull.substring(splitIdx).trim();
+                    }
+
+                    const regex = new RegExp(`\\b${targetWord.word}\\b`, 'i');
+                    let blankSentence = englishPart.replace(regex, '______');
+                    
+                    if (blankSentence === englishPart) {
+                        blankSentence = englishPart.replace(new RegExp(targetWord.word, 'ig'), '______');
+                    }
+                    if (blankSentence === englishPart) {
+                        blankSentence = `______ ${englishPart}`;
+                    }
+
+                    const otherWords = words
+                        .filter(w => w.word !== targetWord.word)
+                        .map(w => w.word);
+                    
+                    const shuffledOthers = shuffleArray(otherWords).slice(0, 3);
+                    const options = shuffleArray([targetWord.word, ...shuffledOthers]);
+
+                    return {
+                        word: targetWord.word,
+                        meaning: targetWord.meaning,
+                        example: targetWord.example,
+                        sentence: blankSentence,
+                        translation: japanesePart,
+                        questionText: blankSentence,
+                        correctAnswer: targetWord.word,
+                        options: options
+                    };
                 }
-
-                // 大文字小文字を区別せず、単語をプレースホルダーに置換
-                // 単語が含まれない場合のフェイルセーフとして単純置換
-                const regex = new RegExp(`\\b${targetWord.word}\\b`, 'i');
-                let blankSentence = englishPart.replace(regex, '______');
-                
-                // もし正規表現でヒットしなかった場合の強制置換
-                if (blankSentence === englishPart) {
-                    blankSentence = englishPart.replace(new RegExp(targetWord.word, 'ig'), '______');
-                }
-                if (blankSentence === englishPart) {
-                    blankSentence = `______ ${englishPart}`;
-                }
-
-                // 選択肢の生成（他の単語から3つ選ぶ）
-                const otherWords = words
-                    .filter(w => w.word !== targetWord.word)
-                    .map(w => w.word);
-                
-                const shuffledOthers = shuffleArray(otherWords).slice(0, 3);
-                const options = shuffleArray([targetWord.word, ...shuffledOthers]);
-
-                return {
-                    word: targetWord.word,
-                    meaning: targetWord.meaning,
-                    sentence: blankSentence,
-                    translation: japanesePart,
-                    options: options
-                };
             });
 
             quizState = {
+                mode: quizState.mode,
                 questions: questions,
                 currentIndex: 0,
                 answers: [],
@@ -536,36 +603,48 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             renderQuiz();
         }
 
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
         function renderQuiz() {
+            if (!appContainer) return;
             const q = quizState.questions[quizState.currentIndex];
             const progress = ((quizState.currentIndex) / quizState.questions.length) * 100;
+            const isMeaningMode = quizState.mode === 'meaning';
             
             let html = `
                 <div class="fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 max-w-2xl mx-auto">
-                    <!-- ヘッダー (プログレス) -->
                     <div class="flex justify-between items-center mb-2">
-                        <button onclick="if(confirm('クイズを中断してホームに戻りますか？')) renderHome()" class="text-sm text-slate-400 hover:text-slate-600 flex items-center gap-1">
+                        <button onclick="renderHome()" class="text-sm text-slate-400 hover:text-slate-600 flex items-center gap-1 cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                             やめる
                         </button>
+                        <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-full">${isMeaningMode ? '意味当てモード' : '例文穴埋めモード'}</span>
                         <span class="text-sm font-bold text-slate-500">問題 ${quizState.currentIndex + 1} / ${quizState.questions.length}</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-1.5 mb-8">
                         <div class="bg-blue-500 h-1.5 rounded-full transition-all duration-300" style="width: ${progress}%"></div>
                     </div>
 
-                    <!-- 問題文（空欄付き英文） -->
                     <div class="mb-8 text-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                        <p class="text-xl md:text-2xl font-bold text-slate-800 tracking-tight leading-relaxed mb-3">${q.sentence}</p>
+                        ${isMeaningMode ? `<span class="text-xs font-bold text-slate-400 block mb-1">英単語</span>` : `<span class="text-xs font-bold text-slate-400 block mb-1">空欄に入る適切なものを選んでください</span>`}
+                        <p class="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight leading-relaxed">${q.questionText}</p>
+                        ${!isMeaningMode && q.translation ? `<p class="text-sm text-slate-500 mt-3 font-medium">${q.translation}</p>` : ''}
                     </div>
 
-                    <!-- 選択肢 -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="options-container">
+                    <div class="grid grid-cols-1 ${isMeaningMode ? 'gap-3' : 'md:grid-cols-2 gap-3'}" id="options-container">
             `;
 
-            q.options.forEach((opt, idx) => {
+            q.options.forEach((opt) => {
+                const escapedOpt = opt.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                 html += `
-                    <button onclick="handleAnswer('${opt.replace(/'/g, "\\'")}', this)" class="option-btn text-left p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50 text-slate-700 font-bold text-lg transition-all duration-200">
+                    <button onclick="handleAnswer('${escapedOpt}', this)" class="option-btn text-left p-4 rounded-xl border-2 border-slate-200 bg-white hover:border-blue-300 hover:bg-blue-50 text-slate-700 font-bold text-base transition-all duration-200 cursor-pointer">
                         ${opt}
                     </button>
                 `;
@@ -574,15 +653,27 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             html += `
                     </div>
                     
-                    <!-- 結果と解説 -->
                     <div id="explanation" class="hidden mt-6 p-5 rounded-xl border">
                         <div id="result-badge" class="inline-block px-3 py-1 rounded-full text-sm font-bold mb-3"></div>
-                        <p class="text-xs text-slate-500 mb-1">正解の単語:</p>
-                        <p class="text-xl font-black text-slate-800 mb-2">${q.word}</p>
-                        <p class="text-xs text-slate-500 mb-1">意味:</p>
-                        <p class="text-md font-bold text-blue-900 mb-4">${q.meaning}</p>
                         
-                        <button onclick="nextQuestion()" class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-md active:scale-95">
+                        <div class="bg-white p-4 rounded-lg border border-slate-100 mb-4 space-y-2">
+                            <div>
+                                <span class="text-xs text-slate-400 block">単語</span>
+                                <span class="text-lg font-black text-slate-800">${q.word}</span>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 block">意味</span>
+                                <span class="text-base font-bold text-blue-900">${q.meaning}</span>
+                            </div>
+                            ${q.example ? `
+                            <div class="pt-2 border-t border-slate-100">
+                                <span class="text-xs text-slate-400 block mb-1">例文</span>
+                                <p class="text-xs text-slate-600 font-medium">${q.example}</p>
+                            </div>
+                            ` : ''}
+                        </div>
+                        
+                        <button onclick="nextQuestion()" class="w-full py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-md active:scale-95 cursor-pointer">
                             ${quizState.currentIndex === quizState.questions.length - 1 ? '結果を見る' : '次の問題へ'}
                         </button>
                     </div>
@@ -592,15 +683,13 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             appContainer.innerHTML = html;
         }
 
-        // 回答処理
         window.handleAnswer = function(selectedOption, btnElement) {
             if (quizState.isAnswered) return;
             quizState.isAnswered = true;
 
             const q = quizState.questions[quizState.currentIndex];
-            const isCorrect = selectedOption === q.word;
+            const isCorrect = selectedOption === q.correctAnswer;
 
-            // 履歴の更新
             if (!history[q.word]) {
                 history[q.word] = { correct: 0, total: 0 };
             }
@@ -608,30 +697,31 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             if (isCorrect) {
                 history[q.word].correct += 1;
             }
-            localStorage.setItem('quizHistory', JSON.stringify(history));
+            try {
+                localStorage.setItem('quizHistory', JSON.stringify(history));
+            } catch(e) {}
 
-            // 回答記録の保存
             quizState.answers.push({
                 word: q.word,
                 meaning: q.meaning,
-                sentence: q.sentence,
-                translation: q.translation,
+                example: q.example,
+                questionText: q.questionText,
+                correctAnswer: q.correctAnswer,
                 isCorrect: isCorrect,
                 selected: selectedOption
             });
 
-            // UIの更新
             const buttons = document.querySelectorAll('.option-btn');
             buttons.forEach(btn => {
                 btn.disabled = true;
                 btn.classList.remove('hover:border-blue-300', 'hover:bg-blue-50', 'cursor-pointer');
                 
-                if (btn.innerText.trim() === q.word) {
+                if (btn.innerText.trim() === q.correctAnswer) {
                     btn.classList.add('bg-green-50', 'border-green-500', 'text-green-800');
                     if (isCorrect) {
                         btn.innerHTML += ' <span class="float-right font-bold">⭕️</span>';
                     } else {
-                         btn.innerHTML += ' <span class="float-right font-bold text-green-600">正解</span>';
+                        btn.innerHTML += ' <span class="float-right font-bold text-green-600">正解</span>';
                     }
                 } else if (btn === btnElement && !isCorrect) {
                     btn.classList.add('bg-red-50', 'border-red-500', 'text-red-800', 'opacity-70');
@@ -641,7 +731,6 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
                 }
             });
 
-            // 解説表示
             const explanation = document.getElementById('explanation');
             const resultBadge = document.getElementById('result-badge');
             
@@ -668,6 +757,7 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
         };
 
         function renderResult() {
+            if (!appContainer) return;
             const totalQuestions = quizState.answers.length;
             const correctCount = quizState.answers.filter(a => a.isCorrect).length;
             const scorePercent = Math.round((correctCount / totalQuestions) * 100);
@@ -680,7 +770,7 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             let html = `
                 <div class="fade-in bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10 max-w-3xl mx-auto">
                     <div class="text-center mb-8">
-                        <h2 class="text-2xl font-bold text-slate-800 mb-2">クイズ結果</h2>
+                        <h2 class="text-2xl font-bold text-slate-800 mb-2">クイズ結果 (${quizState.mode === 'meaning' ? '意味当て' : '例文穴埋め'})</h2>
                         <div class="inline-block bg-blue-50 text-blue-800 text-5xl font-black py-4 px-8 rounded-2xl mb-4 shadow-sm border border-blue-100">
                             ${correctCount} / ${totalQuestions}
                         </div>
@@ -688,16 +778,16 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
                     </div>
 
                     <div class="flex justify-center mb-8">
-                        <button onclick="renderHome()" class="px-8 py-3 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700 transition shadow-md active:scale-95">
+                        <button onclick="renderHome()" class="px-8 py-3 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700 transition shadow-md active:scale-95 cursor-pointer">
                             ホームに戻る
                         </button>
                     </div>
 
-                    <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">解答一覧</h3>
+                    <h3 class="text-xl font-bold text-slate-800 mb-4 border-b pb-2">正誤一覧</h3>
                     <div class="space-y-4">
             `;
 
-            quizState.answers.forEach((ans, idx) => {
+            quizState.answers.forEach((ans) => {
                 const isCorrect = ans.isCorrect;
                 const bgColor = isCorrect ? 'bg-green-50' : 'bg-red-50';
                 const borderColor = isCorrect ? 'border-green-200' : 'border-red-200';
@@ -708,10 +798,9 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
                         <div class="flex items-start gap-3">
                             <div class="mt-1 flex-shrink-0">${icon}</div>
                             <div class="flex-grow">
-                                <p class="text-md font-bold text-slate-800 mb-1">${ans.sentence}</p>
-                                <p class="text-xs text-slate-500 mb-2">${ans.translation}</p>
-                                <div class="flex flex-wrap gap-4 text-sm bg-white/70 p-3 rounded-lg border border-white">
-                                    <div><span class="text-slate-400 text-xs block">正解単語</span><span class="font-bold text-slate-800">${ans.word}</span></div>
+                                <p class="text-md font-bold text-slate-800 mb-1">${ans.questionText}</p>
+                                <div class="flex flex-wrap gap-4 text-sm bg-white/70 p-3 rounded-lg border border-white mt-2">
+                                    <div><span class="text-slate-400 text-xs block">単語</span><span class="font-bold text-slate-800">${ans.word}</span></div>
                                     <div><span class="text-slate-400 text-xs block">意味</span><span class="font-bold text-blue-900">${ans.meaning}</span></div>
                                     ${!isCorrect ? `<div><span class="text-slate-400 text-xs block">あなたの回答</span><span class="font-bold text-red-600 line-through">${ans.selected}</span></div>` : ''}
                                 </div>
@@ -725,7 +814,7 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
                     </div>
                     
                     <div class="mt-8 text-center">
-                        <button onclick="renderHome()" class="px-8 py-3 bg-slate-200 text-slate-800 font-bold rounded-xl hover:bg-slate-300 transition active:scale-95">
+                        <button onclick="renderHome()" class="px-8 py-3 bg-slate-200 text-slate-800 font-bold rounded-xl hover:bg-slate-300 transition active:scale-95 cursor-pointer">
                             ホームに戻る
                         </button>
                     </div>
@@ -736,7 +825,43 @@ withdraw,撤退する・（お金を）引き出す,"I need to go to the bank to
             window.scrollTo(0, 0);
         }
 
-        renderHome();
+        window.confirmResetHistory = function() {
+            const modal = document.getElementById('custom-modal');
+            const title = document.getElementById('modal-title');
+            const message = document.getElementById('modal-message');
+            const cancelBtn = document.getElementById('modal-cancel');
+            const confirmBtn = document.getElementById('modal-confirm');
+
+            title.innerText = '学習履歴のリセット';
+            message.innerText = 'これまでのテスト結果（セクション別・全体の定着率）がすべて削除されます。よろしいですか？';
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                confirmBtn.replaceWith(confirmBtn.cloneNode(true));
+                cancelBtn.replaceWith(cancelBtn.cloneNode(true));
+            };
+
+            cancelBtn.onclick = closeModal;
+            confirmBtn.onclick = () => {
+                history = {};
+                try {
+                    localStorage.removeItem('quizHistory');
+                } catch(e) {}
+                closeModal();
+                renderHome();
+            };
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHome();
+        });
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            renderHome();
+        }
     </script>
 </body>
 </html>
