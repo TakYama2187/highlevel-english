@@ -415,7 +415,7 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
             const totalMastery = calculateMastery(words);
             const currentMode = quizState.mode || 'meaning';
             
-            // 正解したことがある単語のリスト（累計でcorrect > 0）
+            // 正解したことがある単語のリスト（正解数 > 0）
             const correctWordsPool = words.filter(w => history[w.word] && history[w.word].correct > 0);
 
             let html = `
@@ -451,7 +451,7 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
                                 <h3 class="font-bold text-amber-900 text-lg">✨ 正解した問題から復習 (${correctWordsPool.length}単語)</h3>
-                                <p class="text-xs text-amber-700 mt-1">これまで正解したことがある単語の中からランダムに出題します。</p>
+                                <p class="text-xs text-amber-700 mt-1">正解済みの単語から出題します。間違えると未正解に戻ります。</p>
                             </div>
                             <div class="flex gap-2">
                                 ${correctWordsPool.length > 0 ? `
@@ -534,7 +534,6 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
 
             const questions = targetWords.map(targetWord => {
                 if (isMeaningMode) {
-                    // 意味当て：問題は単語、正解は意味、選択肢は4択（正解＋他3つの意味）
                     const otherMeanings = words
                         .filter(w => w.word !== targetWord.word)
                         .map(w => w.meaning);
@@ -551,7 +550,6 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
                         options: options
                     };
                 } else {
-                    // 例文穴埋め：問題は空欄付き例文、正解は単語、選択肢は4択（正解＋他3つの単語）
                     let exampleFull = targetWord.example;
                     let englishPart = exampleFull;
                     let japanesePart = "";
@@ -695,9 +693,14 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
                 history[q.word] = { correct: 0, total: 0 };
             }
             history[q.word].total += 1;
+            
             if (isCorrect) {
                 history[q.word].correct += 1;
+            } else {
+                // 間違えた場合は「正解数(correct)」を0にリセットして未正解状態に戻す
+                history[q.word].correct = 0;
             }
+            
             try {
                 localStorage.setItem('quizHistory', JSON.stringify(history));
             } catch(e) {}
@@ -743,7 +746,7 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
             } else {
                 explanation.classList.add('bg-red-50/50', 'border-red-200');
                 resultBadge.classList.add('bg-red-100', 'text-red-700');
-                resultBadge.innerText = '❌ 不正解...';
+                resultBadge.innerText = '❌ 不正解... (未正解に戻りました)';
             }
         };
 
@@ -864,15 +867,12 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
             renderHome();
         }
 
-        // キーボード操作の追加
+        // キーボード操作
         document.addEventListener('keydown', (e) => {
-            // モーダルが表示されている場合や、クイズ中ではない場合はスキップ
             const modal = document.getElementById('custom-modal');
             if (modal && !modal.classList.contains('hidden')) return;
 
-            // クイズ実施中のキーボード操作
             if (quizState.questions && quizState.questions.length > 0 && quizState.currentIndex < quizState.questions.length) {
-                // 1〜4キーで選択肢を選ぶ（未回答時のみ）
                 if (!quizState.isAnswered && ['1', '2', '3', '4'].includes(e.key)) {
                     const optionIndex = parseInt(e.key) - 1;
                     const buttons = document.querySelectorAll('.option-btn');
@@ -880,13 +880,11 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
                         buttons[optionIndex].click();
                     }
                 }
-                // EnterまたはSpaceキーで次の問題へ（回答済み時）
                 else if (quizState.isAnswered && (e.key === 'Enter' || e.key === ' ')) {
                     e.preventDefault();
                     nextQuestion();
                 }
             } 
-            // クイズ結果画面でEnterキーでホームに戻る
             else if (quizState.answers && quizState.answers.length > 0 && quizState.currentIndex >= quizState.questions.length) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
