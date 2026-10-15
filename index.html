@@ -635,7 +635,6 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
                     <div class="mb-8 text-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
                         ${isMeaningMode ? `<span class="text-xs font-bold text-slate-400 block mb-1">英単語</span>` : `<span class="text-xs font-bold text-slate-400 block mb-1">空欄に入る適切なものを選んでください</span>`}
                         <p class="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight leading-relaxed">${q.questionText}</p>
-                        ${!isMeaningMode && q.translation ? `<p class="text-sm text-slate-500 mt-3 font-medium">${q.translation}</p>` : ''}
                     </div>
 
                     <div class="grid grid-cols-1 ${isMeaningMode ? 'gap-3' : 'md:grid-cols-2 gap-3'}" id="options-container">
@@ -667,7 +666,7 @@ withdraw,撤退する・（お金yを）引き出す,"I need to go to the bank t
                             </div>
                             ${q.example ? `
                             <div class="pt-2 border-t border-slate-100">
-                                <span class="text-xs text-slate-400 block mb-1">例文</span>
+                                <span class="text-xs text-slate-400 block mb-1">例文 / 和訳</span>
                                 <p class="text-xs text-slate-600 font-medium">${q.example}</p>
                             </div>
                             ` : ''}
